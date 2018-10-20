@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="24dp"
+    tools:context=".SignInFragment">
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="8dp"
+        android:src="@mipmap/ic_launcher_round"
+        android:contentDescription="@string/app_name" />
+
+    <TextView
+        android:id="@+id/sign_in_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/logo"
+        android:layout_centerHorizontal="true"
+        android:padding="8dp"
+        android:text="@string/sign_in_label"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textSize="24sp" />
+
+    <LinearLayout
+        android:id="@+id/input_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sign_in_label"
+        android:orientation="vertical">
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_layout_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/input_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints=".AUTOFILL_HINT_EMAIL_ADDRESS"
+                android:hint="@string/hint_email"
+                android:inputType="textEmailAddress"
+                tools:ignore="UnusedAttribute" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_layout_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:passwordToggleEnabled="true">
+
+            <EditText
+                android:id="@+id/input_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints=".AUTOFILL_HINT_PASSWORD"
+                android:hint="@string/hint_password"
+                android:inputType="textPassword"
+                tools:ignore="UnusedAttribute" />
+        </android.support.design.widget.TextInputLayout>
+
+        <TextView
+            android:id="@+id/forgot_password_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?android:selectableItemBackground"
+            android:padding="8dp"
+            android:text="@string/forgot_password_label"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/sign_in_button"
+        android:layout_width="160dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/input_layout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/stylized_button"
+        android:text="@string/sign_in_button"
+        android:textSize="18sp" />
+
+</RelativeLayout>

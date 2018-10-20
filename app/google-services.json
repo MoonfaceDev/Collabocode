@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "739582783850",
+    "firebase_url": "https://collabocode-moonface.firebaseio.com",
+    "project_id": "collabocode-moonface",
+    "storage_bucket": "collabocode-moonface.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:739582783850:android:c3a858a5c37109c2",
+        "android_client_info": {
+          "package_name": "com.moonface.collabocode"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "739582783850-29h8ethj609f8n9ik01uhcv9atpjcqpn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.moonface.collabocode",
+            "certificate_hash": "65fdebc23e466aafda83bf6e06d679cebd8758d9"
+          }
+        },
+        {
+          "client_id": "739582783850-ggqp2cgccja4ja6pj18c9uh02vqu62pj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1mgjUd0zG5gJZ2jHVeCs0AUH__ee6x8A"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "739582783850-ggqp2cgccja4ja6pj18c9uh02vqu62pj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

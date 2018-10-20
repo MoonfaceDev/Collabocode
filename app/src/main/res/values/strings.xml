@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">Collabocode</string>
+    <string name="title_projects">Projects</string>
+    <string name="title_forum">Forum</string>
+    <string name="title_learn">Learn</string>
+
+    <string name="title_my_projects">My projects</string>
+    <string name="title_shared_with_me">Shared with me</string>
+
+    <string name="sign_in_failed_message">Sign in failed</string>
+    <string name="sign_in_success_message">Signed in successfully</string>
+    <string name="welcome_message">Welcome to Collabocode!</string>
+
+    <string name="create_account_button">Create account</string>
+    <string name="sign_in_button">Sign in</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="sign_in_label">Sign in</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="forgot_password_label">Forgot password?</string>
+    <string name="email_sent_message">Email sent</string>
+    <string name="cancel_label">Cancel</string>
+    <string name="ok_label">OK</string>
+    <string name="forgot_password_dialog_message">Send password reset email to</string>
+    <string name="send_label">Send</string>
+    <string name="email_empty_toast">Enter an email</string>
+    <string name="password_empty_toast">Enter a password</string>
+    <string name="error_occurred_message">Error occurred</string>
+    <string name="sign_up_button">Sign up</string>
+    <string name="already_have_account_button">Already have an account</string>
+    <string name="hint_name">Name</string>
+    <string name="email_invalid">Email invalid</string>
+    <string name="name_empty_toast">Enter your name</string>
+    <string name="agree_to_privacy_policy">I agree to the <a href="TODO">Privacy Policy</a></string>
+    <string name="agree_to_terms_and_conditions">I agree to the <a href="TODO">Terms and Conditions</a></string>
+</resources>
