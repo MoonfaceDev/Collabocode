@@ -20,26 +20,65 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <LinearLayout
+
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <com.duolingo.open.rtlviewpager.RtlViewPager
-            android:id="@+id/main_pager"
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:indeterminate="true"
+            android:max="100" />
 
-        </com.duolingo.open.rtlviewpager.RtlViewPager>
-
-        <android.support.design.widget.BottomNavigationView
-            android:id="@+id/main_bottom_navigation"
+        <FrameLayout
+            android:id="@+id/placeholder"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:menu="@menu/main_bottom_navigation" />
+            android:layout_height="match_parent">
+        </FrameLayout>
 
-    </LinearLayout>
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/fab_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.getbase.floatingactionbutton.FloatingActionsMenu
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp"
+            app:fab_addButtonColorNormal="@color/colorAccent"
+            app:fab_addButtonColorPressed="@color/colorAccentPressed"
+            app:fab_addButtonPlusIconColor="@color/white"
+            app:fab_labelStyle="@style/fab_label_style">
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/join_team"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fab_icon="@drawable/ic_edit_redo"
+                app:fab_size="mini"
+                app:fab_title="Join team"
+                app:fab_colorNormal="@color/white"
+                app:fab_colorPressed="#ededed" />
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/new_team"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fab_icon="@drawable/ic_group_add_black_24dp"
+                app:fab_size="mini"
+                app:fab_title="New team"
+                app:fab_colorNormal="@color/white"
+                app:fab_colorPressed="#ededed"/>
+
+        </com.getbase.floatingactionbutton.FloatingActionsMenu>
+    </FrameLayout>
 
 </android.support.design.widget.CoordinatorLayout>

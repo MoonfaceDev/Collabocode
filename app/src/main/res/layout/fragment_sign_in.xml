@@ -87,6 +87,8 @@
         android:layout_marginBottom="8dp"
         android:background="@drawable/stylized_button"
         android:text="@string/sign_in_button"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:transitionName="main_button"
+        tools:ignore="UnusedAttribute" />
 
 </RelativeLayout>

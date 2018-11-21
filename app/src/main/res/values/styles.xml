@@ -10,8 +10,26 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="TeamInfoDialog" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="android:windowCloseOnTouchOutside">false</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:colorBackground"> @android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.3</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+    </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="fab_label_style">
+        <item name="android:background">@drawable/fab_label_background</item>
+        <item name="android:textColor">@color/textDarkPrimary</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:elevation">2dp</item>
+    </style>
 
 </resources>
