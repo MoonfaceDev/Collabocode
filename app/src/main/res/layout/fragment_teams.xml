@@ -9,7 +9,8 @@
         android:id="@+id/teams_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="16dp"
+        android:layoutAnimation="@anim/layout_animation_fall_down" />
 
     <ProgressBar
         android:id="@+id/loading_bar"

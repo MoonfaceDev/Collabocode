@@ -72,7 +72,7 @@ public class AddPeopleDialog extends Dialog implements View.OnClickListener {
                         List<TeamCode> teamCodes = task.getResult().toObjects(TeamCode.class);
                         String code;
                         while (true){
-                            code = UUID.randomUUID().toString().substring(0,6);
+                            code = UUID.randomUUID().toString().substring(0,8);
                             boolean unique = true;
                             for (TeamCode teamCode : teamCodes){
                                 if (teamCode.getCode().equals(code)){

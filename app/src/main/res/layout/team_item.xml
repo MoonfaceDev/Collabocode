@@ -23,6 +23,14 @@
             android:contentDescription="@string/icon_view_description"
             app:srcCompat="@drawable/ic_group_colored_24dp" />
 
+        <ImageView
+            android:id="@+id/star_view"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:contentDescription="@string/star_label"
+            app:srcCompat="@drawable/twotone_star_black_24" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -16,15 +16,20 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.functions.FirebaseFunctions;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.storage.FirebaseStorage;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -32,20 +37,20 @@ import java.util.UUID;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TEAM_ID = "team_id";
-    FirebaseUser user;
-    FirebaseFirestore firestore;
-    TeamsFragment teamsFragment;
-    FloatingActionsMenu fab;
-    NewTeamDialog newTeamDialog;
-    JoinTeamDialog joinTeamDialog;
-    ProgressBar progressBar;
+    private FirebaseFirestore firestore;
+    private FirebaseFunctions functions;
+    private TeamsFragment teamsFragment;
+    private FloatingActionsMenu fab;
+    private NewTeamDialog newTeamDialog;
+    private JoinTeamDialog joinTeamDialog;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        user = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         if(user == null) {
             Intent loginIntent = new Intent(this, LoginActivity.class);
@@ -56,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        functions = FirebaseFunctions.getInstance();
         firestore = FirebaseFirestore.getInstance();
         teamsFragment = new TeamsFragment();
 
@@ -76,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         findViewById(R.id.new_team).setOnClickListener(v -> {
-            newTeamDialog = new NewTeamDialog(this, this::createTeam);
+            newTeamDialog = new NewTeamDialog(MainActivity.this, this::createTeam);
             newTeamDialog.show();
             fab.collapse();
         });
@@ -91,6 +97,13 @@ public class MainActivity extends AppCompatActivity {
 
         progressBar = findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.INVISIBLE);
+
+        if (FirebaseAuth.getInstance().getUid() != null) {
+            FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(instanceIdResult -> {
+                String token = instanceIdResult.getToken();
+                FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getUid()).update("token_id", token);
+            });
+        }
     }
 
     private void changeFragments(Fragment fragment){
@@ -108,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
         team.setTitle(title);
         team.setDescription(description);
         team.setDateCreated(Timestamp.now());
+        team.setDateUpdated(Timestamp.now());
         firestore.collection("teams").add(team).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 firestore.collection("teams").document(Objects.requireNonNull(task.getResult()).getId()).update("id", task.getResult().getId());
@@ -165,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
                 List<TeamCode> teamCodes = task.getResult().toObjects(TeamCode.class);
                 String code;
                 while (true){
-                    code = UUID.randomUUID().toString().substring(0,6);
+                    code = UUID.randomUUID().toString().substring(0,8);
                     boolean unique = true;
                     for (TeamCode teamCode : teamCodes){
                         if (teamCode.getCode().equals(code)){
@@ -185,12 +199,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void addMember(String id, boolean admin) {
-        Member member = new Member(id, Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid(), admin);
-        firestore.collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).collection("memberships").document(id).set(member);
-        firestore.collection("teams").document(id).collection("members").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).set(member);
-    }
-
     private void joinTeam(String code){
         firestore.collection("codes").get().addOnCompleteListener(task -> {
             if (task.getResult() != null) {
@@ -199,7 +207,7 @@ public class MainActivity extends AppCompatActivity {
                 for (TeamCode teamCode : teamCodes){
                     if (teamCode.getCode().equals(code)){
                         exists = true;
-                        addMember(teamCode.getTeamId(), false);
+                        DatabaseTasks.addMember(teamCode.getTeamId());
                         break;
                     }
                 }
@@ -217,7 +225,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, final int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
-            newTeamDialog.setIcon(data.getData());
+            if (newTeamDialog != null) {
+                newTeamDialog.setIcon(data.getData());
+            } else {
+                teamsFragment.editTeamDialog.setIcon(data.getData());
+            }
         }
     }
 }

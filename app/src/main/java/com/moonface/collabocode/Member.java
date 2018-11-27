@@ -1,11 +1,10 @@
 package com.moonface.collabocode;
 
-import com.google.gson.Gson;
-
 public class Member {
     private String teamId;
     private String userId;
     private boolean admin;
+    private boolean starred;
 
 
     public Member(){
@@ -16,6 +15,7 @@ public class Member {
         this.teamId = teamId;
         this.userId = userId;
         this.admin = admin;
+        this.starred = false;
     }
 
     public void setTeamId(String teamId) {
@@ -40,5 +40,13 @@ public class Member {
 
     public boolean isAdmin() {
         return admin;
+    }
+
+    public void setStarred(boolean starred) {
+        this.starred = starred;
+    }
+
+    public boolean isStarred() {
+        return starred;
     }
 }

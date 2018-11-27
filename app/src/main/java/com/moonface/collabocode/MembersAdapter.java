@@ -13,13 +13,13 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class MembersAdapter extends RecyclerView.Adapter<MembersAdapter.ViewHolder> {
     private final Activity context;
-    private ArrayList<Member> data;
-    private OnItemClickListener listener;
+    private List<Member> data;
+    private OnItemLongClickListener listener;
 
     class ViewHolder extends RecyclerView.ViewHolder {
         View block;
@@ -33,7 +33,7 @@ public class MembersAdapter extends RecyclerView.Adapter<MembersAdapter.ViewHold
         }
     }
 
-    MembersAdapter(ArrayList<Member> data, Activity context, OnItemClickListener listener) {
+    MembersAdapter(List<Member> data, Activity context, OnItemLongClickListener listener) {
         this.data = data;
         this.context = context;
         this.listener = listener;
@@ -58,7 +58,7 @@ public class MembersAdapter extends RecyclerView.Adapter<MembersAdapter.ViewHold
                         .into(holder.profileView);
             }
         });
-        holder.block.setOnClickListener(v -> listener.onClick(data.get(position),position));
+        holder.block.setOnLongClickListener(v -> listener.onClick(holder.block, data.get(position),position));
     }
 
     @Override
@@ -66,8 +66,8 @@ public class MembersAdapter extends RecyclerView.Adapter<MembersAdapter.ViewHold
         return data.size();
     }
 
-    public interface OnItemClickListener {
-        void onClick(Member member, int position);
+    public interface OnItemLongClickListener {
+        boolean onClick(View view, Member member, int position);
     }
 
 }

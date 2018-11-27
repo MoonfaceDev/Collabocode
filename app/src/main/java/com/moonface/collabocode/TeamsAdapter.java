@@ -8,11 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class TeamsAdapter extends RecyclerView.Adapter<TeamsAdapter.ViewHolder> {
     private final Activity context;
@@ -22,12 +25,13 @@ public class TeamsAdapter extends RecyclerView.Adapter<TeamsAdapter.ViewHolder> 
 
     class ViewHolder extends RecyclerView.ViewHolder {
         View block;
-        ImageView iconView;
+        ImageView iconView, starView;
         TextView nameView, descriptionView;
         ViewHolder(View v) {
             super(v);
             block = v.findViewById(R.id.card);
             iconView = v.findViewById(R.id.icon_view);
+            starView = v.findViewById(R.id.star_view);
             nameView = v.findViewById(R.id.title_view);
             descriptionView = v.findViewById(R.id.description_view);
         }
@@ -66,6 +70,16 @@ public class TeamsAdapter extends RecyclerView.Adapter<TeamsAdapter.ViewHolder> 
         } else {
             holder.iconView.setImageResource(R.drawable.ic_group_colored_24dp);
         }
+        holder.starView.setVisibility(View.INVISIBLE);
+        FirebaseFirestore.getInstance().collection("users").document(Objects.requireNonNull(FirebaseAuth.getInstance().getUid())).collection("memberships").document(data.get(position).getId()).get().addOnCompleteListener(task -> {
+            if (task.getResult() != null){
+                if (Objects.requireNonNull(task.getResult().toObject(Member.class)).isStarred()){
+                    holder.starView.setVisibility(View.VISIBLE);
+                } else {
+                    holder.starView.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
         holder.block.setOnClickListener(v -> onItemClickListener.onClick(data.get(position), position));
         holder.block.setOnLongClickListener(v -> onItemLongClickListener.onClick(holder, data.get(position), position));
     }

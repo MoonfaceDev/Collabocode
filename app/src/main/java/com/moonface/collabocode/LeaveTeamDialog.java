@@ -8,28 +8,33 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.Objects;
 
-public class DeleteTeamDialog extends Dialog implements View.OnClickListener {
+public class LeaveTeamDialog extends Dialog implements View.OnClickListener {
 
+    private final String title;
     private OnOkPressedListener listener;
 
-    DeleteTeamDialog(Activity activity, OnOkPressedListener listener) {
+    LeaveTeamDialog(Activity activity, String title, OnOkPressedListener listener) {
         super(activity);
         this.listener = listener;
+        this.title = title;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.dialog_delete_team);
+        setContentView(R.layout.dialog_leave_team);
         Objects.requireNonNull(getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         Button pos = findViewById(R.id.positiveButton);
         Button neg = findViewById(R.id.negativeButton);
         pos.setOnClickListener(this);
         neg.setOnClickListener(this);
+        TextView dialogMessage = findViewById(R.id.dialog_message);
+        dialogMessage.setText(dialogMessage.getContext().getString(R.string.leave_dialog_message, title));
     }
 
     @Override

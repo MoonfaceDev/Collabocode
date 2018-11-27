@@ -12,6 +12,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -27,11 +28,22 @@ public class NewTeamDialog extends Dialog implements View.OnClickListener {
     private Activity activity;
     private Uri iconUri;
     private ImageView iconView;
+    private boolean isNew;
+    private Team team;
 
     NewTeamDialog(Activity activity, OnOkPressedListener listener) {
         super(activity);
         this.listener = listener;
         this.activity = activity;
+        this.isNew = true;
+    }
+
+    NewTeamDialog(Activity activity, Team team, OnOkPressedListener listener) {
+        super(activity);
+        this.listener = listener;
+        this.activity = activity;
+        this.isNew = false;
+        this.team = team;
     }
 
     @Override
@@ -48,6 +60,16 @@ public class NewTeamDialog extends Dialog implements View.OnClickListener {
         descriptionView = findViewById(R.id.description_view);
         iconView = findViewById(R.id.icon_view);
         iconView.setOnClickListener(v -> pick());
+        if (isNew){
+            ((TextView)findViewById(R.id.dialog_title)).setText(R.string.new_team_label);
+        } else {
+            ((TextView)findViewById(R.id.dialog_title)).setText(R.string.edit_team_label);
+            nameView.setText(team.getTitle());
+            descriptionView.setText(team.getDescription());
+            if(team.getIconUrl() != null) {
+                Glide.with(activity).load(team.getIconUrl()).apply(RequestOptions.circleCropTransform()).into(iconView);
+            }
+        }
     }
     private final static int RESULT_LOAD_IMAGE = 1;
 

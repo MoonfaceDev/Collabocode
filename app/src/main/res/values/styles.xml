@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -21,6 +21,16 @@
         <item name="android:windowIsFloating">true</item>
     </style>
 
+    <style name="RepliesDialogStyle" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowBackground">@color/white</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
@@ -29,7 +39,7 @@
         <item name="android:background">@drawable/fab_label_background</item>
         <item name="android:textColor">@color/textDarkPrimary</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:elevation">2dp</item>
+        <item name="android:elevation" tools:ignore="NewApi">2dp</item>
     </style>
 
 </resources>
